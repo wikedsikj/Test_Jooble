@@ -1,5 +1,5 @@
-*/15 * * * * bash /home/wikedsikj/Test_Jooble/bash.sh access.log 
-0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh chunga.log
-0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh custom.log
-0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh error.log
-0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh seo.log
+*/15 * * * * bash /home/wikedsikj/Test_Jooble/bash.sh access.log # Каждые 15 минут сценарий bash.sh срабатывает на файл access.log
+0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh chunga.log # Каждый день в час ночи сценарий bash.sh срабатывает файл chunga.log
+0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh custom.log # Каждый день в час ночи сценарий bash.sh срабатывает файл custom.log
+0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh error.log # Каждый день в час ночи сценарий bash.sh срабатывает файл error.log
+0 1 */1 * *  bash /home/wikedsikj/Test_Jooble/bash.sh seo.log # Каждый день в час ночи сценарий bash.sh срабатывает файл seo.log 
