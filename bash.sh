@@ -1,20 +1,20 @@
 #!/bin/bash
 
-arch_time=`date +"%Y-%m-%d-%H-%M"`
-name_log="/home/wikedsikj/Test_Jooble/$1"
-folder_log="/home/wikedsikj/Test_Jooble/arch/"
+arch_time=`date +"%Y-%m-%d-%H-%M"` # объявляем в переменную текущее время
+name_log="/home/wikedsikj/Test_Jooble/$1" # объявляем в переменную полный путь файла
+folder_log="/home/wikedsikj/Test_Jooble/arch/" # объявляем в переменную полный путь директории с архивами
 
-sed -i '/192.168.0.100\|127.0.0.1\|^00:00\|[/]reinit$/d' $1
-sed -i "s/[a-f0-9]\{32\}-[0-3][0-9][0-1][0-9]2[0-1][0-9][0-9][$]\([-+.']\w\+\)*@\w\+\([-.]\w\+\)*/*****/g" $1
-zip -r "${folder_log}/$1-${arch_time}.zip" $name_log
+sed -i '/192.168.0.100\|127.0.0.1\|^00:00\|[/]reinit$/d' $1 # удаляем рядки в файле, если присутствует данные выражения
+sed -i "s/[a-f0-9]\{32\}-[0-3][0-9][0-1][0-9]2[0-1][0-9][0-9][$]\([-+.']\w\+\)*@\w\+\([-.]\w\+\)*/*****/g" $1 № # замена данных, если соотствуют данному регулярному выражению
+zip -r "${folder_log}/$1-${arch_time}.zip" $name_log # создаётся архив с названием файла и текущего времени
 
-count_arch=`find $folder_log -name "${1}*" | wc -l`
+count_arch=`find $folder_log -name "${1}*" | wc -l` # находит соответствующие архивы и подсчитывает их
 
-if ((count_arch > 10)); then
-for ((i=1; i<=$(( count_arch-10 )); i++)) do
+if ((count_arch > 10)); then # если подсчитанных архивом больше 10, то срабатывает цикл, если архивов 10 или меньше, то пропускает цикл
+for ((i=1; i<=$(( count_arch-10 )); i++)) do # находит саммый ранний созданный архив в папке для архивом и отправляет его через scp, после исходный файл удаляется
 arch_copy=`find $folder_log -name "${1}*" | sort | head -n1`
 scp -u $arch_copy  backuper@192.168.0.43:/var/log/storage
 done
 fi
 
-cat /dev/null > $name_log
+cat /dev/null > $name_log # очищает полностью файл
